@@ -1,0 +1,163 @@
+{{define "content"}}
+
+<!-- Grafik Kartı -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">{{.Title}}</h6>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-outline-primary active" onclick="updateChart(0)">Kilo</button>
+                    <button type="button" class="btn btn-outline-success" onclick="updateChart(1)">Boy</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="updateChart(2)">Yağ %</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-area" style="position: relative; height:40vh; width:100%">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Yeni Ölçüm Ekle Formu -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Yeni Ölçüm Ekle</h6>
+            </div>
+            <div class="card-body">
+                <form action="/admin/danisan/{{$.UserID}}/grafik/ekle" method="POST">
+                    <div class="form-row">
+                        <div class="form-group col-md-4"> 
+                            <label>Kilo (kg)</label>
+                            <input type="number" step="0.1" name="weight" class="form-control" placeholder="75.5" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Boy (cm)</label>
+                            <input type="number" step="0.1" name="height" class="form-control" placeholder="178" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Yağ Oranı (%)</label>
+                            <input type="number" step="0.1" name="fat-ratio" class="form-control" placeholder="18.5" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ölçüm Geçmişi Tablosu -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Ölçüm Geçmişi</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Tarih</th>
+                                <th>Kilo (kg)</th>
+                                <th>Boy (cm)</th>
+                                <th>Yağ Oranı (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Measurements}}
+                            <tr>
+                                <td>{{.CreatedAt.Format "02 Jan 2006"}}</td>
+                                <td>{{.Weight}}</td>
+                                <td>{{.Height}}</td>
+                                <td>{{.FatRatio}}</td>
+                            </tr>
+                            {{else}}
+                            <tr>
+                                <td colspan="4" class="text-center">Henüz ölçüm girilmemiş.</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Çakışmaları önlemek için var kullanıyoruz ve global tanımlıyoruz
+    var myChart;
+    var configs = [];
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Go verileri
+        var labels    = {{.Labels}} || [];
+        var weights   = {{.Weights}} || [];
+        var heights   = {{.Heights}} || [];
+        var fatRatios = {{.FatRatios}} || [];
+        
+        configs = [
+            { label: 'Kilo (kg)', data: weights, color: 'rgba(78,115,223,1)', bg: 'rgba(78,115,223,0.05)' },
+            { label: 'Boy (cm)', data: heights, color: 'rgba(28,200,138,1)', bg: 'rgba(28,200,138,0.05)' },
+            { label: 'Yağ Oranı (%)', data: fatRatios, color: 'rgba(231,74,59,1)', bg: 'rgba(231,74,59,0.05)' }
+        ];
+        
+        var canvas = document.getElementById('myAreaChart');
+        if (!canvas) return;
+
+        var ctx = canvas.getContext('2d');
+        
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: configs[0].label,
+                    data: configs[0].data,
+                    borderColor: configs[0].color,
+                    backgroundColor: configs[0].bg,
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: configs[0].color,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: false },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    });
+
+    function updateChart(index) {
+        if (!myChart || !configs[index]) return;
+        
+        var config = configs[index];
+        myChart.data.datasets[0].label = config.label;
+        myChart.data.datasets[0].data = config.data;
+        myChart.data.datasets[0].borderColor = config.color;
+        myChart.data.datasets[0].backgroundColor = config.bg;
+        myChart.data.datasets[0].pointBackgroundColor = config.color;
+
+        var buttons = document.querySelectorAll('.btn-group .btn');
+        buttons.forEach((btn, i) => {
+            i === index ? btn.classList.add('active') : btn.classList.remove('active');
+        });
+    
+        myChart.update();
+    }
+</script>
+
+{{end}}

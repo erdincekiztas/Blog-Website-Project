@@ -1,0 +1,57 @@
+{{define "content"}}
+<div>
+    <h1>Post Düzenleme
+        <a href="/admin" class="btn btn-outline-primary float-right mr-4"><i class="fa fa-arrow-left mr-2"></i>Geri Dön</a>
+    </h1>
+    <hr>
+<!--   burada multipart/form*data kullanmamın sebebi fotoğraf uploadı gibi işlemlerde form binary data post büyük veriler olduğu için form veriyi parçalar halinde gönderiyor -->
+<form action="/admin/guncelle/{{$.Post.ID}}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="blog-title">Blog Başlığı</label>
+        <input type="text" name="blog-title" class="form-control" value="{{ .Post.Title }}">
+    </div>
+     <div class="form-group">
+        <label for="blog-desc">Blog Açıklaması</label>
+        <textarea type="text" name="blog-desc" cols="30" rows="2" class="form-control">{{ .Post.Description }}</textarea>
+    </div>
+     <div class="form-group">
+        <label for="picture-url">Blog Görseli</label>  
+        <img width="100px" class="my-2" src="{{.Post.PictureUrl}}" id="current-picture">
+        <!--     eğer fotoğraf değiştirilirse is_selected javascript kodu ile değiştirilir ve current-picture gizlenir -->
+        <input type="hidden" name="is_selected" id="is_selected" value="0">
+        <input type="file" name="picture-url" class="form-control-file" id="picture-url">
+    </div>
+    <div>
+        <label >Blog Kategorisi</label>
+        <select name="blog-category" class="form-control">
+            <option value="1" {{if eq .Post.CategoryID 1}}selected{{end}}>Göğüs (Chest)</option>
+            <option value="2" {{if eq .Post.CategoryID 2}}selected{{end}}>Sırt (Back)</option>
+            <option value="3" {{if eq .Post.CategoryID 3}}selected{{end}}>Omuz (Shoulders)</option>
+            <option value="4" {{if eq .Post.CategoryID 4}}selected{{end}}>Biceps</option>
+            <option value="5" {{if eq .Post.CategoryID 5}}selected{{end}}>Triceps</option>
+            <option value="6" {{if eq .Post.CategoryID 6}}selected{{end}}>Bacak (Legs)</option>
+            <option value="7" {{if eq .Post.CategoryID 7}}selected{{end}}>Karın (Abs)</option>
+            <option value="8" {{if eq .Post.CategoryID 8}}selected{{end}}>Kalça (Glutes)</option>
+            <option value="9" {{if eq .Post.CategoryID 9}}selected{{end}}>Ön Kol (Forearms)</option>
+            <option value="10" {{if eq .Post.CategoryID 10}}selected{{end}}>Kalf (Calves)</option>
+        </select>
+    </div>
+    <br>
+     <div class="form-group">
+        <label for="blog-content">Blog İçeriği</label>
+        <textarea type="text"  id="summernote" name="blog-content" cols="30" rows="2" class="form-control">{{.Post.Content}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-outline-success w-100 my-3">Güncelle</button>
+                        
+</form>
+</div>
+
+<script>
+    document.getElementById('picture-url').addEventListener('change', function() {
+        document.getElementById('is_selected').setAttribute('value', '1');
+        document.getElementById('current-picture').style.display = 'none';
+    });
+</script>
+{{end}}
+
+

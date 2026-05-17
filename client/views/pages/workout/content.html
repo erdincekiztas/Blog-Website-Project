@@ -1,0 +1,226 @@
+{{define "content"}}
+<div class="container-fluid py-4">
+    <h4 class="mb-4 text-gray-800">{{.User.Name}} Haftalık Antrenman Programı</h4>
+
+    <div id="workoutAccordion">
+
+        <!-- Pazartesi -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold" data-toggle="collapse" data-target="#monday" data-parent="#workoutAccordion">
+                        Pazartesi
+                    </button>
+                </h5>
+            </div>
+            <div id="monday" class="collapse show" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Monday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr><th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th></tr>
+                        </thead>
+                        <tbody>
+                            {{range .Monday}}
+                            <tr>
+                                <td>{{.Exercise}}</td><td>{{.Sets}}</td><td>{{.Reps}}</td><td>{{.RestPeriod}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Salı -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#tuesday" data-parent="#workoutAccordion">
+                        Salı
+                    </button>
+                </h5>
+            </div>
+            <div id="tuesday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Tuesday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr><th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th></tr>
+                        </thead>
+                        <tbody>
+                            {{range .Tuesday}}
+                            <tr>
+                                <td>{{.Exercise}}</td><td>{{.Sets}}</td><td>{{.Reps}}</td><td>{{.RestPeriod}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Çarşamba -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#wednesday" data-parent="#workoutAccordion">
+                        Çarşamba
+                    </button>
+                </h5>
+            </div>
+            <div id="wednesday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Wednesday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr><th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th></tr>
+                        </thead>
+                        <tbody>
+                            {{range .Wednesday}}
+                            <tr>
+                                <td>{{.Exercise}}</td><td>{{.Sets}}</td><td>{{.Reps}}</td><td>{{.RestPeriod}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Perşembe -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#thursday" data-parent="#workoutAccordion">
+                        Perşembe
+                    </button>
+                </h5>
+            </div>
+            <div id="thursday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Thursday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr><th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th></tr>
+                        </thead>
+                        <tbody>
+                            {{range .Thursday}}
+                            <tr>
+                                <td>{{.Exercise}}</td><td>{{.Sets}}</td><td>{{.Reps}}</td><td>{{.RestPeriod}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Cuma -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#friday" data-parent="#workoutAccordion">
+                        Cuma
+                    </button>
+                </h5>
+            </div>
+            <div id="friday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Friday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr><th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th></tr>
+                        </thead>
+                        <tbody>
+                            {{range .Friday}}
+                            <tr>
+                                <td>{{.Exercise}}</td><td>{{.Sets}}</td><td>{{.Reps}}</td><td>{{.RestPeriod}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Cumartesi -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#saturday" data-parent="#workoutAccordion">
+                        Cumartesi
+                    </button>
+                </h5>
+            </div>
+            <div id="saturday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Saturday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr><th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th></tr>
+                        </thead>
+                        <tbody>
+                            {{range .Saturday}}
+                            <tr>
+                                <td>{{.Exercise}}</td><td>{{.Sets}}</td><td>{{.Reps}}</td><td>{{.RestPeriod}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Pazar -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#sunday" data-parent="#workoutAccordion">
+                        Pazar
+                    </button>
+                </h5>
+            </div>
+            <div id="sunday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Sunday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr><th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th></tr>
+                        </thead>
+                        <tbody>
+                            {{range .Sunday}}
+                            <tr>
+                                <td>{{.Exercise}}</td><td>{{.Sets}}</td><td>{{.Reps}}</td><td>{{.RestPeriod}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{{end}}

@@ -4,34 +4,33 @@
         <a href="/admin/yeni-post-ekle" class="btn btn-outline-primary float-right mr-4"><i class="fa fa-plus mr-2"></i>Yeni Ekle</a>
     </h1>
     <hr>
+    
     <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Kapak Görseli</th>
+      <th scope="col">Başlık</th>
+      <th scope="col">Kategori</th>
+      <th scope="col">Eklenme Tarihi</th>
+      <th scope="col">İşlemler</th>
     </tr>
-  </thead>
-  <tbody>
+  </thead> 
+  <tbody> 
+    {{ range $index,$value := .Posts }}
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <th scope="row">{{$index}}</th>
+      <td><img width="50" height="40" src="{{$value.PictureUrl}}"></td>
+      <td>{{$value.Title}}</td>
+      <td>{{$value.CategoryID}}</td>
+      <td>{{$value.CreatedAt.Format "15:04:05 02 Jan 2006 Monday"}}</td>
+      <td>
+        <a href="/admin/duzenle/{{$value.ID}}" class="btn btn-outline-warning mx-1">Düzenle</a>
+        <a href="/admin/post-sil/{{$value.ID}}" class="btn btn-outline-danger mx-1">Sil</a>
+      </td>
+      
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+   {{end}}
   </tbody>
 </table>
 </div>

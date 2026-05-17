@@ -1,0 +1,82 @@
+{{define "content"}}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Blog Yazıları</h1>
+    </div>
+    <div class="row">
+        {{if .Posts}}
+            {{range .Posts}}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow border-0" style="border-radius:12px; overflow:hidden;">
+                    
+                    <!-- Fotoğraf + Overlay -->
+                    <div style="position:relative; height:220px;">
+                        {{if .PictureUrl}}
+                        <img src="{{.PictureUrl}}" alt="{{.Title}}" 
+                             style="width:100%; height:100%; object-fit:cover;">
+                        {{else}}
+                        <div class="bg-gradient-primary" style="width:100%; height:100%;"></div>
+                        {{end}}
+                        <!-- Karartma -->
+                        <div style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));"></div>
+                        <!-- Badge üstte -->
+                        <div style="position:absolute; top:12px; left:12px;">
+                            {{if eq .CategoryID 1}}
+                              <span class="badge badge-primary">Göğüs (Chest)</span>
+                            {{else if eq .CategoryID 2}}
+                              <span class="badge badge-secondary">Sırt (Back)</span>
+                            {{else if eq .CategoryID 3}}
+                              <span class="badge badge-info">Omuz (Shoulders)</span>
+                            {{else if eq .CategoryID 4}}
+                              <span class="badge badge-success">Biceps</span>
+                            {{else if eq .CategoryID 5}}
+                              <span class="badge badge-warning">Triceps</span>
+                            {{else if eq .CategoryID 6}}
+                              <span class="badge badge-danger">Bacak (Legs)</span>
+                            {{else if eq .CategoryID 7}}
+                              <span class="badge badge-dark">Karın (Abs)</span>
+                            {{else if eq .CategoryID 8}}
+                              <span class="badge badge-light">Kalça (Glutes)</span>
+                            {{else if eq .CategoryID 9}}
+                              <span class="badge badge-primary">Ön Kol (Forearms)</span>
+                            {{else if eq .CategoryID 10}}
+                              <span class="badge badge-secondary">Kalf (Calves)</span>
+                            {{end}}
+                        </div>
+                        <!-- Başlık altta -->
+                        <div style="position:absolute; bottom:12px; left:12px; right:12px;">
+                            <h5 class="text-white font-weight-bold mb-0" style="text-shadow:1px 1px 3px rgba(0,0,0,0.8);">
+                                {{.Title}}
+                            </h5>
+                        </div>
+                    </div>
+
+                    <!-- Kart Alt Kısım -->
+                    <div class="card-body py-3">
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-calendar-alt mr-1"></i>
+                            {{.CreatedAt.Format "02.01.2006"}}
+                        </p>
+                        <p class="card-text text-truncate">{{.Description}}</p>
+                        <a href="/yazilar/{{.Slug}}" class="btn btn-primary btn-sm mt-1">
+                            <i class="fas fa-arrow-right mr-1"></i>
+                            Devamını Oku
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            {{end}}
+        {{else}}
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-newspaper fa-3x text-gray-300 mb-3"></i>
+                        <p class="text-muted">Henüz blog yazısı bulunmuyor.</p>
+                    </div>
+                </div>
+            </div>
+        {{end}}
+    </div>
+</div>
+{{end}}

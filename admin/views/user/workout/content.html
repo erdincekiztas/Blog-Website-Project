@@ -1,0 +1,327 @@
+{{define "content"}}
+<div class="container-fluid py-4">
+    <h4 class="mb-4 text-gray-800">{{.User.Name}} Haftalık Antrenman Programı</h4>
+
+    <!-- Egzersiz Ekle Formu -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Egzersiz Ekle</h6>
+        </div>
+        <div class="card-body">
+            <form action="/admin/danisan/{{.User.ID}}/antrenman-programi/ekle" method="POST">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label>Gün</label>
+                        <select class="form-control" name="day_id">
+                            <option value="1">Pazartesi</option>
+                            <option value="2">Salı</option>
+                            <option value="3">Çarşamba</option>
+                            <option value="4">Perşembe</option>
+                            <option value="5">Cuma</option>
+                            <option value="6">Cumartesi</option>
+                            <option value="7">Pazar</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Egzersiz Adı</label>
+                        <input type="text" class="form-control" name="exercise" placeholder="Bench Press">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Set</label>
+                        <input type="text" class="form-control" name="sets" placeholder="4">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Tekrar</label>
+                        <input type="text" class="form-control" name="reps" placeholder="12">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Dinlenme Süresi</label>
+                        <input type="text" class="form-control" name="rest_period" placeholder="90sn">
+                    </div>
+                    <div class="form-group col-md-1 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary btn-block">Ekle</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Accordion -->
+    <div id="workoutAccordion">
+
+        <!-- Pazartesi -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold" data-toggle="collapse" data-target="#monday" data-parent="#workoutAccordion">
+                        Pazartesi
+                    </button>
+                </h5>
+            </div>
+            <div id="monday" class="collapse show" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Monday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th><th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Monday}}
+                            <tr>
+                                <td>{{.Exercise}}</td>
+                                <td>{{.Sets}}</td>
+                                <td>{{.Reps}}</td>
+                                <td>{{.RestPeriod}}</td>
+                                <td>
+                                    <a href="/admin/danisan/{{$.User.ID}}/antrenman-programi/sil/{{.ID}}" class="btn btn-outline-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Salı -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#tuesday" data-parent="#workoutAccordion">
+                        Salı
+                    </button>
+                </h5>
+            </div>
+            <div id="tuesday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Tuesday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th><th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Tuesday}}
+                            <tr>
+                                <td>{{.Exercise}}</td>
+                                <td>{{.Sets}}</td>
+                                <td>{{.Reps}}</td>
+                                <td>{{.RestPeriod}}</td>
+                                <td>
+                                    <a href="/admin/danisan/{{$.User.ID}}/antrenman-programi/sil/{{.ID}}" class="btn btn-outline-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Çarşamba -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#wednesday" data-parent="#workoutAccordion">
+                        Çarşamba
+                    </button>
+                </h5>
+            </div>
+            <div id="wednesday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Wednesday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th><th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Wednesday}}
+                            <tr>
+                                <td>{{.Exercise}}</td>
+                                <td>{{.Sets}}</td>
+                                <td>{{.Reps}}</td>
+                                <td>{{.RestPeriod}}</td>
+                                <td>
+                                    <a href="/admin/danisan/{{$.User.ID}}/antrenman-programi/sil/{{.ID}}" class="btn btn-outline-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Perşembe -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#thursday" data-parent="#workoutAccordion">
+                        Perşembe
+                    </button>
+                </h5>
+            </div>
+            <div id="thursday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Thursday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th><th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Thursday}}
+                            <tr>
+                                <td>{{.Exercise}}</td>
+                                <td>{{.Sets}}</td>
+                                <td>{{.Reps}}</td>
+                                <td>{{.RestPeriod}}</td>
+                                <td>
+                                    <a href="/admin/danisan/{{$.User.ID}}/antrenman-programi/sil/{{.ID}}" class="btn btn-outline-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Cuma -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#friday" data-parent="#workoutAccordion">
+                        Cuma
+                    </button>
+                </h5>
+            </div>
+            <div id="friday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Friday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th><th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Friday}}
+                            <tr>
+                                <td>{{.Exercise}}</td>
+                                <td>{{.Sets}}</td>
+                                <td>{{.Reps}}</td>
+                                <td>{{.RestPeriod}}</td>
+                                <td>
+                                    <a href="/admin/danisan/{{$.User.ID}}/antrenman-programi/sil/{{.ID}}" class="btn btn-outline-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Cumartesi -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#saturday" data-parent="#workoutAccordion">
+                        Cumartesi
+                    </button>
+                </h5>
+            </div>
+            <div id="saturday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Saturday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th><th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Saturday}}
+                            <tr>
+                                <td>{{.Exercise}}</td>
+                                <td>{{.Sets}}</td>
+                                <td>{{.Reps}}</td>
+                                <td>{{.RestPeriod}}</td>
+                                <td>
+                                    <a href="/admin/danisan/{{$.User.ID}}/antrenman-programi/sil/{{.ID}}" class="btn btn-outline-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Pazar -->
+        <div class="card mb-2">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-dark font-weight-bold collapsed" data-toggle="collapse" data-target="#sunday" data-parent="#workoutAccordion">
+                        Pazar
+                    </button>
+                </h5>
+            </div>
+            <div id="sunday" class="collapse" data-parent="#workoutAccordion">
+                <div class="card-body p-0">
+                    {{if .Sunday}}
+                    <table class="table table-bordered table-hover table-sm mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Egzersiz</th><th>Set</th><th>Tekrar</th><th>Dinlenme</th><th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Sunday}}
+                            <tr>
+                                <td>{{.Exercise}}</td>
+                                <td>{{.Sets}}</td>
+                                <td>{{.Reps}}</td>
+                                <td>{{.RestPeriod}}</td>
+                                <td>
+                                    <a href="/admin/danisan/{{$.User.ID}}/antrenman-programi/sil/{{.ID}}" class="btn btn-outline-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p class="text-muted p-3 mb-0">Bu gün için egzersiz eklenmemiş.</p>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{{end}}

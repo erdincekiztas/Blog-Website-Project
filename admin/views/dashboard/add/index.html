@@ -25,7 +25,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    {{template "content"}}
+                    {{template "content" . }}
                 </div>
                 <!-- /.container-fluid -->
 
@@ -44,6 +44,8 @@
 
    
     {{template "scripts"}}
+    
+    {{template "alert" .Alert }}
 </body>
 </html>
 {{end}}

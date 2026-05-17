@@ -4,8 +4,8 @@
         <a href="/admin" class="btn btn-outline-primary float-right mr-4"><i class="fa fa-arrow-left mr-2"></i>Geri Dön</a>
     </h1>
     <hr>
-    
-<form action="/admin/add" method="post" enctype="multipart/form-data">
+<!--   burada multipart/form*data kullanmamın sebebi fotoğraf uploadı gibi işlemlerde form binary data post büyük veriler olduğu için form veriyi parçalar halinde gönderiyor -->
+<form action="/admin/ekle" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="blog-title">Blog Başlığı</label>
         <input type="text" name="blog-title" class="form-control">
@@ -21,7 +21,16 @@
     <div>
         <label >Blog Kategorisi</label>
         <select name="blog-category" class="form-control">
-            <option value="1" >Teknoloji</option>
+            <option value="1">Göğüs (Chest)</option>
+            <option value="2">Sırt (Back)</option>
+            <option value="3">Omuz (Shoulders)</option>
+            <option value="4">Biceps</option>
+            <option value="5">Triceps</option>
+            <option value="6">Bacak (Legs)</option>
+            <option value="7">Karın (Abs)</option>
+            <option value="8">Kalça (Glutes)</option>
+            <option value="9">Ön Kol (Forearms)</option>
+            <option value="10">Kalf (Calves)</option>
         </select>
     </div>
     <br>
@@ -32,6 +41,5 @@
     <button type="submit" class="btn btn-outline-success w-100 my-3">Kaydet</button>
     
 </form>
-
 </div>
 {{end}}

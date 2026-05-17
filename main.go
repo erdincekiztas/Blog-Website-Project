@@ -1,26 +1,34 @@
 package main
 
 import (
-	"fmt"
+	admin_models "goblog/admin/models"
 	"goblog/config"
+	"log"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	//admin_models.Post{}.Migrate()
-	/*post := admin_models.Post{}.Get(2)  bu şekilde databaseden tek bir veri alabilirsin
-	  post := admin_models.Post{}.Get("title","go ile web")
-	fmt.Println(post.Title)*/
 
-	//fmt.Println(admin_models.Post{}.GetAll("category_id",1))
+	_ = godotenv.Load()
 
-	/*
-		post := admin_models.Post{}.Get(4)
-		post.Update("description", "burası x in blogu")
-		post.Updates(admin_models.Post{Title: "selam ben x", CategoryID: 6})
-	*/
-	//fmt.Println(admin_models.Post{}.GetAll("category_id", 1))
-	fmt.Println("uygulama başladı")
-	http.ListenAndServe(":8080", config.Routes())
+	port := os.Getenv("APP_PORT")
+
+	admin_models.User{}.Migrate()
+	admin_models.Post{}.Migrate()
+	admin_models.Measurement{}.Migrate()
+	admin_models.Workout{}.Migrate()
+	admin_models.Diet{}.Migrate()
+
+	log.Println("server started on :8080")
+	log.Println("localhost:" + port + "/")
+
+	router := config.Routes()
+	err := http.ListenAndServe(":"+port, router)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }

@@ -1,0 +1,70 @@
+{{define "content"}}
+<div class="container-fluid py-4">
+
+    <h4 class="mb-4 text-gray-800">Hoşgeldiniz, {{.User.Name}}!</h4>
+
+    <div class="row">
+
+        <!-- Diyet Programı -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <a href="/diyet-programi" class="text-decoration-none">
+                <div class="card border-left-success shadow h-100 pb-5  pt-3">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Beslenme</div>
+                                <div class="h5 mb-2 font-weight-bold text-gray-800">Diyet Programım</div>
+                                <p class="text-muted small mb-0">Haftalık beslenme planınızı görüntüleyin.</p>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-egg-fried" style="font-size: 3rem; color: #1cc88a;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Antrenman Programı -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <a href="/antrenman-programi" class="text-decoration-none">
+                <div class="card border-left-primary shadow h-100 pb-5  pt-3">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Egzersiz</div>
+                                <div class="h5 mb-2 font-weight-bold text-gray-800">Antrenman Programım</div>
+                                <p class="text-muted small mb-0">Haftalık antrenman planınızı görüntüleyin.</p>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-trophy" style="font-size: 3rem; color: #4e73df;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ölçümler -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <a href="/olcumler" class="text-decoration-none">
+                <div class="card border-left-warning shadow h-100 pb-5  pt-3">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Takip</div>
+                                <div class="h5 mb-2 font-weight-bold text-gray-800">Ölçümlerim</div>
+                                <p class="text-muted small mb-0">Vücut ölçümlerinizi ve ilerlemenizi takip edin.</p>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-graph-up-arrow" style="font-size: 3rem; color: #f6c23e;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+{{end}}

@@ -1,0 +1,42 @@
+{{define "content"}}
+<div>
+    <h1>Danışan Listesi
+    </h1>
+    <hr>
+    
+    {{if .Users}}
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Danışan ID</th>
+      <th scope="col">Danışan İsmi</th>
+      <th scope="col">Mail Adresi</th>
+      <th scope="col">Kayıt Tarihi</th>
+      <th scope="col">Son Güncellenme Tarihi</th>
+      <th scope="col">İşlemler</th>
+    </tr>
+  </thead> 
+  <tbody> 
+    {{ range $index,$value := .Users }}
+    <tr>
+      <td>{{$value.ID}}</td>
+      <td>{{$value.Name}}</td>
+      <td>{{$value.Email}}</td>
+      <td>{{$value.CreatedAt.Format "15:04 02 Jan 2006 Monday"}}</td>
+      <td>{{$value.UpdatedAt.Format "15:04 02 Jan 2006 Monday"}}</td>
+      <td>
+        <a href="/admin/danisan/{{$value.ID}}/grafik" class="btn btn-outline-warning mx-1">Ölçümler</a>
+        <a href="/admin/danisan/{{$value.ID}}/diyet-programi"  class="btn btn-outline-success mx-1">Diyet Programı</a>
+        <a href="/admin/danisan/{{$value.ID}}/antrenman-programi"  class="btn btn-outline-danger mx-1">Antrenman Programı</a>
+      </td>
+      
+    </tr>
+   {{end}}
+  </tbody>
+ 
+</table>
+{{else}}
+<p>aktif danışan bulunmuyor</p>
+{{end}}
+</div>
+{{end}}
